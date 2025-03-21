@@ -1,0 +1,24 @@
+#include <vector>
+#include <queue>    `X
+using namespace std;
+
+class Solution {
+public:
+    int minStoneSum(vector<int>& piles, int k) {
+        priority_queue<int> maxHeap(piles.begin(), piles.end());
+        
+      while (k--) {
+            int top = maxHeap.top(); // Get the largest pile
+            maxHeap.pop(); // Remove it from the heap
+            maxHeap.push(top - top / 2); // Remove floor(top / 2) stones and push updated value back
+        }
+        
+  int total = 0;
+        while (!maxHeap.empty()) {
+            total += maxHeap.top(); // Add remaining stones
+            maxHeap.pop(); // Remove from heap
+        }
+        
+        return total;
+    }
+};
